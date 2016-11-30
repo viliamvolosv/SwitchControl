@@ -15,6 +15,13 @@
     android:layout_centerInParent="true">
 
     <com.github.viliamvolosv.switchcontrol.SwitchControl
+        android:id="@+id/switchcontrol0"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_marginBottom="10dp"
+        />
+
+    <com.github.viliamvolosv.switchcontrol.SwitchControl
         android:id="@+id/switchcontrol1"
         android:layout_width="match_parent"
         android:layout_height="30dp"
