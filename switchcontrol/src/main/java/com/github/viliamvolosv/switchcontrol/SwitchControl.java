@@ -59,7 +59,7 @@ public class SwitchControl extends View {
 
     private String leftText;
     private String rightText;
-
+    private float textSize = 18f;
 
     private PainterControl painterControl = new PainterControl();
     private PainterControl unselectedPainterControl = new PainterControl();
@@ -100,7 +100,6 @@ public class SwitchControl extends View {
         painterControl.add(basePainter);
 
 
-
         if (leftIcon != 0) {
             IconPainter leftIconPainter = new
                     IconPainter(getContext(), leftIcon, radius, true);
@@ -127,19 +126,19 @@ public class SwitchControl extends View {
 
         if (!TextUtils.isEmpty(leftText)) {
             TextPainter leftTextPainter = new
-                    TextPainter(Color.parseColor("#FFFFFF"), leftText, radius, true);
+                    TextPainter(Color.parseColor("#FFFFFF"), leftText, radius, true, textSize);
             selectedPainterControl.add(leftTextPainter);
             TextPainter leftTextPainterMasked = new
-                    TextPainter(Color.parseColor("#ff000000"), leftText, radius, true);
+                    TextPainter(Color.parseColor("#ff000000"), leftText, radius, true, textSize);
             unselectedPainterControl.add(leftTextPainterMasked);
         }
 
         if (!TextUtils.isEmpty(rightText)) {
             TextPainter rightTextPainter = new
-                    TextPainter(Color.parseColor("#FFFFFF"), rightText, radius, false);
+                    TextPainter(Color.parseColor("#FFFFFF"), rightText, radius, false, textSize);
             selectedPainterControl.add(rightTextPainter);
             TextPainter rightTextPainterMasked = new
-                    TextPainter(Color.parseColor("#ff000000"), rightText, radius, false);
+                    TextPainter(Color.parseColor("#ff000000"), rightText, radius, false, textSize);
             unselectedPainterControl.add(rightTextPainterMasked);
         }
 
@@ -182,6 +181,9 @@ public class SwitchControl extends View {
 
         rightText = attributes.getString(R.styleable.segmentAnimatedSwitch_text_right);
         leftText = attributes.getString(R.styleable.segmentAnimatedSwitch_text_left);
+
+        textSize = attributes.getDimension(R.styleable.segmentAnimatedSwitch_text_size,
+                18f);
 
     }
 
@@ -241,7 +243,7 @@ public class SwitchControl extends View {
         setMeasuredDimension(width, height);
         painterControl.onSizeChanged(height, width);
         unselectedPainterControl.onSizeChanged(height, width);
-        selectedPainterControl.onSizeChanged(height,width);
+        selectedPainterControl.onSizeChanged(height, width);
     }
 
     @Override

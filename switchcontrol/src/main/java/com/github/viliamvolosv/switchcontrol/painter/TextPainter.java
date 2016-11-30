@@ -5,7 +5,6 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 
 import com.github.glomadrian.materialanimatedswitch.MaterialAnimatedSwitchState;
-import com.github.glomadrian.materialanimatedswitch.painter.SwitchInboxPinnedPainter;
 
 /**
  * Created by ViliamVolosV on 22.11.2016.
@@ -21,12 +20,15 @@ public class TextPainter implements SwitchControllPainter {
     private float horizontalMargin;
     private boolean isLeft;
     private Rect textBounds;
+    private float x, y;
+    private float textSize =18f;
 
-    public TextPainter(int color, String text, float horizontalMargin, boolean isLeft) {
+    public TextPainter(int color, String text, float horizontalMargin, boolean isLeft,float textSize) {
         this.color = color;
         this.text = text;
         this.horizontalMargin = horizontalMargin;
         this.isLeft = isLeft;
+        this.textSize = textSize;
         init();
     }
 
@@ -41,30 +43,23 @@ public class TextPainter implements SwitchControllPainter {
     }
 
     void setTextSize() {
-        float desiredWidth = width / 2 - horizontalMargin - height / 2;
-        final float testTextSize = 18f;
-
-        // Get the bounds of the text, using our testTextSize.
-        paint.setTextSize(testTextSize);
-        //   Rect bounds = new Rect();
-        //   paint.getTextBounds(text, 0, text.length(), bounds);
-
-        // Calculate the desired size as a proportion of our testTextSize.
-        //   float desiredTextSize = testTextSize * desiredWidth / bounds.width();
-
-        // Set the paint for that size.
-        //  paint.setTextSize(desiredTextSize);
-        textBounds = new
-                Rect();
+        paint.setTextSize(textSize);
+        textBounds = new Rect();
         paint.getTextBounds(text, 0, text.length(), textBounds);
+        y = height / 2 + textBounds.height() / 4;
+        if (isLeft) {
+            x = horizontalMargin + height / 2;
+        } else {
+            x = width - textBounds.width() - horizontalMargin - height / 2;
+        }
     }
 
     @Override
     public void draw(Canvas canvas) {
         if (isLeft)
-            canvas.drawText(text, horizontalMargin + height / 4, height / 2 + textBounds.height() / 4, paint);
+            canvas.drawText(text, x, y, paint);
         else
-            canvas.drawText(text, width / 2 + height / 4 + textBounds.width() / 2, height / 2 + textBounds.height() / 4, paint);
+            canvas.drawText(text, x, y, paint);
     }
 
     @Override

@@ -12,5 +12,6 @@
         <attr name="text_right_color" format="color" />
         <attr name="text_left" format="string" />
         <attr name="text_right" format="string" />
+        <attr name="text_size" format="dimension" />
     </declare-styleable>
 </resources>

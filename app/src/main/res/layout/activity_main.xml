@@ -74,7 +74,7 @@
         app:base_release_color="#EDEDED"
         app:base_press_color="#EDEDED"
         app:ball_release_color="#0093FA"
-        app:ball_press_color="@color/md_white_1000"
+        app:ball_press_color="#0093FA"
         app:icon_left="@drawable/ic_phone_android_black_24dp"
         app:icon_right="@drawable/ic_volume_up_black_24dp"
         app:icon_left_selected="@drawable/ic_phone_android_white_24dp"
