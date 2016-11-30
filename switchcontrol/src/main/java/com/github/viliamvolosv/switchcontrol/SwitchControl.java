@@ -28,8 +28,6 @@ import java.util.Observer;
  */
 public class SwitchControl extends View {
 
-    private int margin;
-
     private MaterialAnimatedSwitchState actualState;
 
     private int baseColorRelease = Color.parseColor("#3061BE");
@@ -67,7 +65,7 @@ public class SwitchControl extends View {
 
     public SwitchControl(Context context) {
         super(context);
-        init();
+        init(null);
     }
 
     public SwitchControl(Context context, AttributeSet attrs) {
@@ -80,26 +78,39 @@ public class SwitchControl extends View {
         init(attrs);
     }
 
-    private void init() {
-        margin = (int) getContext().getResources().getDimension(R.dimen.margin);
+    private void init(AttributeSet attrs) {
+
+        painterControl = new PainterControl();
+        unselectedPainterControl = new PainterControl();
+        selectedPainterControl = new PainterControl();
+
+        if (attrs != null) {
+            TypedArray attributes =
+                    getContext().obtainStyledAttributes(attrs, R.styleable.segmentAnimatedSwitch);
+            initAttributes(attributes);
+            attributes =
+                    getContext().obtainStyledAttributes(attrs, R.styleable.materialAnimatedSwitch);
+
+            initParentAttributes(attributes);
+        }
         initObservables();
         initPainters();
+
+        BasePainter basePainter = new BasePainter(baseColorRelease, baseColorPress, borderSize, radius, ballMoveObservable);
+        painterControl.add(basePainter);
+        SwitcherPainter switcherPainter = new SwitcherPainter(ballColorRelease, ballColorPress, borderSize, radius, ballFinishObservable,
+                ballMoveObservable, getContext(), selectedPainterControl, unselectedPainterControl);
+        painterControl.add(switcherPainter);
+
         actualState = MaterialAnimatedSwitchState.INIT;
         setState(actualState);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             setLayerType(View.LAYER_TYPE_SOFTWARE, null);
         }
+
     }
 
     private void initPainters() {
-        painterControl = new PainterControl();
-        unselectedPainterControl = new PainterControl();
-        selectedPainterControl = new PainterControl();
-
-        BasePainter basePainter = new BasePainter(baseColorRelease, baseColorPress, borderSize, radius, ballMoveObservable);
-        painterControl.add(basePainter);
-
-
         if (leftIcon != 0) {
             IconPainter leftIconPainter = new
                     IconPainter(getContext(), leftIcon, radius, true);
@@ -141,23 +152,8 @@ public class SwitchControl extends View {
                     TextPainter(Color.parseColor("#ff000000"), rightText, radius, false, textSize);
             unselectedPainterControl.add(rightTextPainterMasked);
         }
-
-        SwitcherPainter switcherPainter = new SwitcherPainter(ballColorRelease, ballColorPress, borderSize, radius, ballFinishObservable,
-                ballMoveObservable, getContext(), selectedPainterControl, unselectedPainterControl);
-        painterControl.add(switcherPainter);
-
     }
 
-    private void init(AttributeSet attrs) {
-        TypedArray attributes =
-                getContext().obtainStyledAttributes(attrs, R.styleable.segmentAnimatedSwitch);
-        initAttributes(attributes);
-        attributes =
-                getContext().obtainStyledAttributes(attrs, R.styleable.materialAnimatedSwitch);
-
-        initParentAttributes(attributes);
-        init();
-    }
 
     private void initAttributes(TypedArray attributes) {
         leftIcon =
@@ -206,6 +202,7 @@ public class SwitchControl extends View {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         int desiredWidth = 100;
         int desiredHeight = 100;
 
