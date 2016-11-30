@@ -71,7 +71,7 @@ public class SwitcherPainter extends RoundRectPainter {
         super.draw(canvas);
         unselectedPainterControl.draw(canvas);
         canvas.drawRoundRect(getRoundRect(), getRadius(), getRadius(), paint);
-        count = canvas.saveLayer(0, 0, getWidth(), getHeight(), null, Canvas.ALL_SAVE_FLAG);
+        count = canvas.saveLayer(0, 0, getWidth(), getHeight(), paint, Canvas.ALL_SAVE_FLAG);
         canvas.drawRoundRect(getRoundRect(), getRadius(), getRadius(), paint);
         selectedPainterControl.draw(canvas);
         canvas.restoreToCount(count);
