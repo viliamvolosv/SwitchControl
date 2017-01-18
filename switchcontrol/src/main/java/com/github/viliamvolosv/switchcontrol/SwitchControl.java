@@ -8,7 +8,6 @@ import android.os.Build;
 import android.support.annotation.DrawableRes;
 import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.SoundEffectConstants;
 import android.view.View;
@@ -268,8 +267,6 @@ public class SwitchControl extends View {
                     isToggle = false;
                     doActionDown();
                 }
-                return true;
-            case MotionEvent.ACTION_MOVE:
                 this.getParent().requestDisallowInterceptTouchEvent(true);
                 return true;
             default:
