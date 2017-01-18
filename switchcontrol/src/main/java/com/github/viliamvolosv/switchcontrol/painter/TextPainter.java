@@ -21,9 +21,9 @@ public class TextPainter implements SwitchControllPainter {
     private boolean isLeft;
     private Rect textBounds;
     private float x, y;
-    private float textSize =18f;
+    private float textSize = 18f;
 
-    public TextPainter(int color, String text, float horizontalMargin, boolean isLeft,float textSize) {
+    public TextPainter(int color, String text, float horizontalMargin, boolean isLeft, float textSize) {
         this.color = color;
         this.text = text;
         this.horizontalMargin = horizontalMargin;
@@ -46,7 +46,8 @@ public class TextPainter implements SwitchControllPainter {
         paint.setTextSize(textSize);
         textBounds = new Rect();
         paint.getTextBounds(text, 0, text.length(), textBounds);
-        y = height / 2 + textBounds.height() / 4;
+
+        y = height / 2 - (textBounds.bottom + textBounds.top) / 2;
         if (isLeft) {
             x = horizontalMargin + height / 2;
         } else {
