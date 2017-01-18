@@ -8,7 +8,6 @@ import android.support.annotation.DrawableRes;
 
 import com.github.glomadrian.materialanimatedswitch.MaterialAnimatedSwitchState;
 import com.github.glomadrian.materialanimatedswitch.Utils;
-import com.github.glomadrian.materialanimatedswitch.painter.SwitchInboxPinnedPainter;
 
 /**
  * Created by ViliamVolosV on 22.11.2016.
@@ -110,4 +109,21 @@ public class IconPainter implements SwitchControllPainter {
     public Paint getPaint() {
         return paint;
     }
+
+    public float getMargin() {
+        return margin;
+    }
+
+    public void setMargin(float margin) {
+        this.margin = margin;
+    }
+
+    public int getImageHeight() {
+        return imageHeight;
+    }
+
+    public int getImageWidth() {
+        return imageWidth;
+    }
+
 }

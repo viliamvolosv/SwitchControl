@@ -14,14 +14,14 @@ public class TextPainter implements SwitchControllPainter {
 
     public Paint paint;
     private int color;
-    private int height;
-    private int width;
-    private String text;
-    private float horizontalMargin;
-    private boolean isLeft;
-    private Rect textBounds;
-    private float x, y;
-    private float textSize = 18f;
+    int height;
+    int width;
+    String text;
+    float horizontalMargin;
+    boolean isLeft;
+    Rect textBounds;
+    float x, y;
+    float textSize = 18f;
 
     public TextPainter(int color, String text, float horizontalMargin, boolean isLeft, float textSize) {
         this.color = color;

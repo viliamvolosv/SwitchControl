@@ -17,6 +17,7 @@ import com.github.glomadrian.materialanimatedswitch.observer.BallFinishObservabl
 import com.github.glomadrian.materialanimatedswitch.observer.BallMoveObservable;
 import com.github.viliamvolosv.switchcontrol.painter.BasePainter;
 import com.github.viliamvolosv.switchcontrol.painter.IconPainter;
+import com.github.viliamvolosv.switchcontrol.painter.IconTextPainter;
 import com.github.viliamvolosv.switchcontrol.painter.SwitcherPainter;
 import com.github.viliamvolosv.switchcontrol.painter.TextPainter;
 
@@ -110,45 +111,52 @@ public class SwitchControl extends View {
     }
 
     private void initPainters() {
+        IconPainter leftIconPainter = null;
+        IconPainter rightIconPainter = null;
+        IconPainter leftNegativeIconPainter = null;
+        IconPainter rightNegativeIconPainter = null;
+
         if (leftIcon != 0) {
-            IconPainter leftIconPainter = new
+            leftIconPainter = new
                     IconPainter(getContext(), leftIcon, radius, true);
-            unselectedPainterControl.add(leftIconPainter);
+            //unselectedPainterControl.add(leftIconPainter);
         }
         if (rightIcon != 0) {
-            IconPainter rightIconPainter = new
+            rightIconPainter = new
                     IconPainter(getContext(), rightIcon, radius, false);
-            unselectedPainterControl.add(rightIconPainter);
+            //unselectedPainterControl.add(rightIconPainter);
         }
 
         if (leftSelectedIcon != 0) {
-            IconPainter leftNegativeIconPainter = new
+            leftNegativeIconPainter = new
                     IconPainter(getContext(), leftSelectedIcon, radius, true);
-            selectedPainterControl.add(leftNegativeIconPainter);
+            //selectedPainterControl.add(leftNegativeIconPainter);
         }
 
         if (rightSelectedIcon != 0) {
-            IconPainter rightNegativeIconPainter = new
+            rightNegativeIconPainter = new
                     IconPainter(getContext(), rightSelectedIcon, radius, false);
-            selectedPainterControl.add(rightNegativeIconPainter);
+            //selectedPainterControl.add(rightNegativeIconPainter);
         }
 
 
         if (!TextUtils.isEmpty(leftText)) {
-            TextPainter leftTextPainter = new
-                    TextPainter(Color.parseColor("#FFFFFF"), leftText, radius, true, textSize);
+            IconTextPainter leftTextPainter = new
+                    IconTextPainter(Color.parseColor("#FFFFFF"), leftText, radius, true, textSize,leftNegativeIconPainter);
             selectedPainterControl.add(leftTextPainter);
-            TextPainter leftTextPainterMasked = new
-                    TextPainter(Color.parseColor("#ff000000"), leftText, radius, true, textSize);
+            //selectedPainterControl.add(leftNegativeIconPainter);
+            IconTextPainter leftTextPainterMasked = new
+                    IconTextPainter(Color.parseColor("#ff000000"), leftText, radius, true, textSize,leftIconPainter);
             unselectedPainterControl.add(leftTextPainterMasked);
+            //unselectedPainterControl.add(leftIconPainter);
         }
 
         if (!TextUtils.isEmpty(rightText)) {
-            TextPainter rightTextPainter = new
-                    TextPainter(Color.parseColor("#FFFFFF"), rightText, radius, false, textSize);
+            IconTextPainter rightTextPainter = new
+                    IconTextPainter(Color.parseColor("#FFFFFF"), rightText, radius, false, textSize,rightNegativeIconPainter);
             selectedPainterControl.add(rightTextPainter);
-            TextPainter rightTextPainterMasked = new
-                    TextPainter(Color.parseColor("#ff000000"), rightText, radius, false, textSize);
+            IconTextPainter rightTextPainterMasked = new
+                    IconTextPainter(Color.parseColor("#ff000000"), rightText, radius, false, textSize,rightIconPainter);
             unselectedPainterControl.add(rightTextPainterMasked);
         }
     }
