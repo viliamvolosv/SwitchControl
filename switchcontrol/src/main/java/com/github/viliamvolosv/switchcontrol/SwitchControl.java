@@ -8,6 +8,7 @@ import android.os.Build;
 import android.support.annotation.DrawableRes;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.SoundEffectConstants;
 import android.view.View;
@@ -26,7 +27,7 @@ import java.util.Observer;
 /**
  * Created by ViliamVolosV on 22.11.2016.
  */
-public class SwitchControl extends View {
+public class SwitchControl extends View implements GestureDetector.OnGestureListener {
 
     private MaterialAnimatedSwitchState actualState;
 
@@ -299,6 +300,36 @@ public class SwitchControl extends View {
             isToggle = true;
             doActionDown();
         }
+    }
+
+    @Override
+    public boolean onDown(MotionEvent e) {
+        return false;
+    }
+
+    @Override
+    public void onShowPress(MotionEvent e) {
+
+    }
+
+    @Override
+    public boolean onSingleTapUp(MotionEvent e) {
+        return false;
+    }
+
+    @Override
+    public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+        return false;
+    }
+
+    @Override
+    public void onLongPress(MotionEvent e) {
+
+    }
+
+    @Override
+    public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+        return false;
     }
 
     /**
